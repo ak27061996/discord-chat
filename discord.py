@@ -20,21 +20,19 @@ class DiscordChat():
             if msg == 'hey':
                 return 'hi'
             if msg == '!google':
-                return chat.find_google_chats_history()
+                return [i.replace('!google', '') for i in chat.find_google_chats_history()]
 
             if msg.startswith('!google'):
                 query = msg.replace('!google', '').strip()
                 return self.google_custom_search(query)
             if msg.startswith('!recent'):
                 query = msg.replace('!recent', '').strip()
-                return chat.recent_search(query)
+                return [i.replace('!google', '') for i in chat.recent_search(query)]
         except Exception:
             pass
 
         finally:
             chat.save()
-
-
 
     def google_custom_search(self, query):
         '''
