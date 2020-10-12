@@ -28,6 +28,8 @@ class DiscordChat():
             if msg.startswith('!recent'):
                 query = msg.replace('!recent', '').strip()
                 return [i.replace('!google', '') for i in chat.recent_search(query)]
+            else:
+                return ['hey', '!google {query}', '!recent {query}', '!recent']# %%
         except Exception:
             pass
 
@@ -38,10 +40,14 @@ class DiscordChat():
         '''
             google search api and return top 5 link of results
         '''
-        google_response = requests.get(
-            'https://www.googleapis.com/customsearch/v1?key={0}&cx=017576662512468239146:omuauf_lfve&q={1}'.format(
-                constant.GOOGLE_API_KEY ,query))
-        google_top5_response_link = [i.get('link') for i in google_response.get('items',[])[:5]]
+        google_top5_response_link = []
+        try:
+            google_response = requests.get(
+                'https://www.googleapis.com/customsearch/v1?key={0}&cx=017576662512468239146:omuauf_lfve&q={1}'.format(
+                    constant.GOOGLE_API_KEY ,query)).json()
+            google_top5_response_link = [i.get('link') for i in google_response.get('items',[])[:5]]
+        except:
+            pass
         return google_top5_response_link
     
     
