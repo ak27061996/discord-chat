@@ -14,7 +14,7 @@ class DiscordChat():
             return msg response
         '''
         user_id = session['logged_in']
-        msg = request.POST.get('msg').strip()
+        msg = request.form.get('msg').strip()
         try:
             chat = Chat(msg=msg, user_id=user_id)
             if msg == 'hey':

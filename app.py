@@ -69,9 +69,10 @@ def logout():
 def chat():
     if not session.get('logged_in'):
         return render_template('index.html', message="Hello!")
+    import ipdb; ipdb.set_trace()
     if request.method == 'POST':
         reply_chat = DiscordChat().chat(request)
-        return reply_chat
+        return {'data': reply_chat}
     return {'error': 'only post request accepted'}
 
 
